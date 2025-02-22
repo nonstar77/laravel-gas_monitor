@@ -54,17 +54,17 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="/dashboard" class="nav-link active {{ request()->is('dashboard') ? 'active' : '' }}">
+                <a href="/dashboard" class="nav-link {{ request()->is('dashboard') ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Monitoring</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./index2.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Devices</p>
+                <a href="./devices" class="nav-link {{ request()->is('devices') ? 'active' : '' }}">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Devices</p>
                 </a>
-              </li>
+            </li>
               <li class="nav-item">
                 <a href="./index2.html" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>

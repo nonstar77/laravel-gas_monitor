@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Api\DeviceController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,6 +15,12 @@ use App\Http\Controllers\DashboardController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+Route::get('/devices', [DeviceController::class, 'devices'])->name('devices');
+Route::post('/devices', [DeviceController::class, 'store'])->name('devices.store');
+Route::get('/devices', [DeviceController::class, 'showAllDevices'])->name('devices.devices'); // Tambahkan jika belum ada
+Route::get('/devices', [DeviceController::class, 'index'])->name('devices.index');
+Route::post('/devices/generate-token', [DeviceController::class, 'generateToken'])->name('devices.generateToken');
 
 Route::get('/', function () {
     return view('welcome');

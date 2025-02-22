@@ -1,6 +1,5 @@
 <?php
 
-// app/Models/SensorData.php
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -9,14 +8,23 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class SensorData extends Model
 {
-    use SoftDeletes;
-    use HasFactory;
+    use SoftDeletes, HasFactory;
 
-    // Tambahkan kolom yang sesuai dengan data yang akan disimpan
+    // Nama tabel jika berbeda dari default
+    protected $table = 'sensor_data';
+
+    // Kolom yang bisa diisi
     protected $fillable = [
-        'gas_value_mq4',
-        'gas_value_mq6',
-        'gas_value_mq8',
+        'device_id',
+        'mq4_value',
+        'mq6_value',
+        'mq8_value',
     ];
+
+    // Relasi ke Device
+    public function device()
+    {
+        return $this->belongsTo(Device::class, 'device_id');
+    }
 }
 

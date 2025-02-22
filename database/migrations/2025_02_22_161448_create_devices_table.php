@@ -9,23 +9,21 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-// database/migrations/xxxx_xx_xx_create_sensor_data_table.php
     public function up()
     {
-        Schema::create('sensor_data', function (Blueprint $table) {
+        Schema::create('devices', function (Blueprint $table) {
             $table->id();
-            $table->integer('gas_value');  // Kolom untuk nilai gas
+            $table->string('name');
+            $table->string('token')->unique();
             $table->timestamps();
         });
     }
-
-
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('sensor_data');
+        Schema::dropIfExists('devices');
     }
 };

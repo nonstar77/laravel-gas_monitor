@@ -6,14 +6,19 @@ use Illuminate\Http\Request;
 use App\Services\WhatsAppService;
 use App\Models\SensorData;
 use App\Models\User;
+use App\Models\Device;
 
 
 class DashboardController extends Controller
 {
-    public function index(){
-        $data = SensorData::latest()->get();
-        return view('dashboard', compact('data'));
-    }    
+    public function index()
+    {
+        $devices = Device::all();
+        $sensorData = SensorData::latest()->take(10)->get(); // Ambil 10 data terbaru
+
+        return view('dashboard', compact('devices', 'sensorData'));
+    }
+
     public function checkGasLevel()
 {
     $latestSensorData = SensorData::latest()->first();
