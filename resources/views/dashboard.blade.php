@@ -90,6 +90,7 @@
 <script>
 document.addEventListener("DOMContentLoaded", function () {
     let ctx = document.getElementById('sensorChart').getContext('2d');
+
     let sensorChart = new Chart(ctx, {
         type: 'line',
         data: {
@@ -102,10 +103,23 @@ document.addEventListener("DOMContentLoaded", function () {
         },
         options: {
             responsive: true,
+            maintainAspectRatio: true, // Jaga agar chart tetap proporsional
             scales: {
                 x: {
-                    title: { display: true, text: 'Waktu', color: '#FFFFFF' },
-                    ticks: { color: '#FFFFFF' }
+                    title: { display: true, text: 'Tanggal & Waktu', color: '#FFFFFF' },
+                    ticks: {
+                        color: '#FFFFFF',
+                        callback: function(value, index, values) {
+                            return new Date(value).toLocaleString("id-ID", {
+                                year: "numeric",
+                                month: "2-digit",
+                                day: "2-digit",
+                                hour: "2-digit",
+                                minute: "2-digit",
+                                second: "2-digit"
+                            }); // Pastikan timestamp ditampilkan dengan benar
+                        }
+                    }
                 },
                 y: {
                     title: { display: true, text: 'Nilai Sensor', color: '#FFFFFF' },
@@ -115,17 +129,17 @@ document.addEventListener("DOMContentLoaded", function () {
             },
             plugins: {
                 legend: {
-                    labels: {
-                        color: '#FFFFFF',
-                        font: { size: 14 }
-                    }
+                    labels: { color: '#FFFFFF', font: { size: 14 } }
                 }
             }
         }
     });
 
+    let currentDeviceId = null;
+    let interval = null;
+
     function updateChart(deviceId) {
-        if (!deviceId) return;
+        if (!deviceId || deviceId !== currentDeviceId) return;
 
         fetch(`/api/sensor?device_id=${deviceId}`)
             .then(response => response.json())
@@ -136,7 +150,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 let mq8_values = [];
 
                 data.forEach(sensor => {
-                    labels.push(sensor.created_at);
+                    labels.push(new Date(sensor.created_at).getTime()); // Simpan sebagai timestamp
                     mq4_values.push(sensor.mq4_value);
                     mq6_values.push(sensor.mq6_value);
                     mq8_values.push(sensor.mq8_value);
@@ -154,14 +168,25 @@ document.addEventListener("DOMContentLoaded", function () {
     let deviceSelect = document.getElementById('device-select');
     deviceSelect.addEventListener('change', function () {
         let deviceId = this.value;
-        updateChart(deviceId); // Panggil pertama kali saat perangkat dipilih
+        currentDeviceId = deviceId;
 
-        setInterval(() => {
-            updateChart(deviceId); // Ambil data tiap 5 detik
+        sensorChart.data.labels = [];
+        sensorChart.data.datasets.forEach(dataset => dataset.data = []);
+        sensorChart.update();
+
+        if (interval) clearInterval(interval);
+
+        updateChart(deviceId);
+
+        interval = setInterval(() => {
+            updateChart(deviceId);
         }, 5000);
     });
-});
 
+    window.addEventListener("resize", function () {
+        sensorChart.resize();
+    });
+});
 </script>
 @endsection
 

@@ -22,19 +22,34 @@ class DeviceController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'sensors' => 'array', // Pastikan sensors dikirim sebagai array
-            'sensors.*' => 'string', // Setiap sensor harus string
+            'sensors' => 'required|array|min:1', // Wajib pilih minimal 1 sensor
+            'sensors.*' => 'in:mq4,mq6,mq8' // Pastikan nilai hanya dari daftar ini
+        ], [
+            'sensors.required' => 'Anda harus memilih setidaknya satu sensor.',
+            'sensors.min' => 'Anda harus memilih setidaknya satu sensor.',
         ]);
 
-        $device = Device::create([
+        // Generate token unik untuk perangkat
+        $token = Str::random(32);
+
+        // Simpan ke database
+        Device::create([
             'name' => $request->name,
             'sensors' => json_encode($request->sensors), // Simpan sebagai JSON
-            'token' => Str::random(32),
+            'token' => $token
         ]);
 
-        return redirect()->back()->with('success', 'Perangkat berhasil didaftarkan!');
+        return redirect()->route('devices.index')->with('success', 'Perangkat berhasil didaftarkan.');
     }
 
+
+    public function destroy($id)
+    {
+        $device = Device::findOrFail($id);
+        $device->delete();
+
+        return redirect()->route('devices.index')->with('success', 'Perangkat berhasil dihapus');
+    }
 
     public function showAllDevices()
     {

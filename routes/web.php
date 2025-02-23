@@ -22,6 +22,8 @@ Route::get('/devices', [DeviceController::class, 'showAllDevices'])->name('devic
 Route::get('/devices', [DeviceController::class, 'index'])->name('devices.index');
 Route::post('/devices/generate-token', [DeviceController::class, 'generateToken'])->name('devices.generateToken');
 
+Route::resource('devices', DeviceController::class);
+
 Route::get('/', function () {
     return view('welcome');
 });
