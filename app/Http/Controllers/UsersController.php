@@ -19,4 +19,23 @@ class UsersController extends Controller
         $users = User::all();
         return view('users_data', compact('users'));
     }
+
+    public function updateRole(Request $request, $id)
+    {
+        // Cek apakah user yang login adalah admin
+        if (Auth::user()->role !== 'admin') {
+            return redirect()->back()->with('error', 'Anda tidak memiliki izin untuk mengubah peran pengguna.');
+        }
+
+        // Validasi input
+        $request->validate([
+            'role' => 'required|in:user,admin',
+        ]);
+
+        // Temukan user berdasarkan ID
+        $user = User::findOrFail($id);
+        $user->role = $request->role;
+        $user->save();
+        return redirect()->back()->with('success', 'Role pengguna berhasil diperbarui.');
+    }
 }

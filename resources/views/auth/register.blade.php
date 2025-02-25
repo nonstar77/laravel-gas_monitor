@@ -22,7 +22,7 @@
     <div class="card-header text-center">
       <a href="{{asset('reglogin/index2.html')}}" class="h1"><b>Register here</b></a>
     </div>
-    <div class="card-body"> 
+    <div class="card-body">
 
       @if (session('failed'))
           <div class="alert alert-danger">{{session('failed')}}</div>
@@ -98,18 +98,6 @@
           <!-- /.col -->
         </div>
       </form>
-      
-      <div class="social-auth-links text-center mb-3">
-      <p>- OR -</p>
-      <div class="social-auth-links text-center mt-2 mb-3">
-        <a href="#" class="btn btn-block btn-primary">
-          <i class="fab fa-facebook mr-2"></i> Register using Facebook
-        </a>
-        <a href="#" class="btn btn-block btn-danger">
-          <i class="fab fa-google-plus mr-2"></i> Register using Google+
-        </a>
-      </div>
-      <!-- /.social-auth-links -->
 
       <p class="mb-1">
         already have an account?

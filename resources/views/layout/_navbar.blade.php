@@ -34,7 +34,12 @@
         @else
             <!-- Jika user belum login -->
             <li class="nav-item">
-                <a class="nav-link" href="/login">Login</a>
+                <div class=login-button>
+                    <a class="nav-link" href="/login">
+                    <i class="fas fa-power-off"></i>
+                    <span>Login</span>
+                    </a>
+                </div>
             </li>
         @endauth
     </ul>

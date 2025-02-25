@@ -193,16 +193,16 @@ th {
     margin: 20px auto;
 }
 #gasChart {
-    background-color: white;
+    background-color: rgb(0, 0, 0);
     border-radius: 10px;
     padding: 10px;
 }
 
 .logout-button {
-    background-color: #d9534f; /* Warna merah */
+    background-color: #c9302c; /* Warna merah */
     color: white !important; /* Pastikan teks putih */
     border-radius: 5px;
-    padding: 8px 10px; /* Sesuaikan padding agar lebih proporsional */
+    padding: 5px 8px; /* Sesuaikan padding agar lebih proporsional */
     display: flex;
     align-items: center; /* Pusatkan ikon dan teks secara vertikal */
     justify-content: center; /* Pusatkan secara horizontal */
@@ -227,5 +227,37 @@ th {
 }
 
 .logout-button:hover {
-    background-color: #c9302c; /* Warna merah lebih gelap saat hover */
+    background-color: #d9534f; /* Warna merah lebih gelap saat hover */
 }
+
+.login-button {
+    background-color: #2c3ec9; /* Warna merah */
+    color: white !important; /* Pastikan teks putih */
+    border-radius: 5px;
+    display: flex;
+    align-items: center; /* Pusatkan ikon dan teks secara vertikal */
+    justify-content: center; /* Pusatkan secara horizontal */
+    gap: 8px; /* Beri jarak antara ikon dan teks */
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.login-button a {
+    color: white !important;
+    font-size: 14px; /* Ukuran font */
+    font-weight: bold;
+    text-decoration: none;
+    display: flex;
+    align-items: center; /* Pastikan kontennya tetap sejajar */
+    gap: 5px; /* Jarak antara ikon dan teks */
+}
+
+.login-button i {
+    font-size: 14px; /* Ukuran ikon */
+}
+
+.login-button:hover {
+    background-color: rgb(44, 112, 201); /* Warna merah lebih gelap saat hover */
+}
+

@@ -29,7 +29,7 @@ let chartData = {
     ]
 };
 
-// Konfigurasi Chart.js
+// Konfigurasi Chart.js dengan tema gelap
 const ctx = document.getElementById('gasChart').getContext('2d');
 const gasChart = new Chart(ctx, {
     type: 'line',
@@ -39,20 +39,25 @@ const gasChart = new Chart(ctx, {
         plugins: {
             legend: {
                 display: true,
-                labels: { color: '#000000' } // Ubah warna teks legenda jadi hitam
+                labels: { color: '#ffffff' } // Warna teks legenda jadi putih
             }
         },
         scales: {
             x: {
-                ticks: { color: '#000000' } // Ubah warna teks sumbu X jadi hitam
+                ticks: { color: '#ffffff' }, // Warna teks sumbu X jadi putih
+                grid: { color: 'rgba(255, 255, 255, 0.2)' } // Grid sumbu X lebih redup
             },
             y: {
-                ticks: { color: '#000000' }, // Ubah warna teks sumbu Y jadi hitam
+                ticks: { color: '#ffffff' }, // Warna teks sumbu Y jadi putih
+                grid: { color: 'rgba(255, 255, 255, 0.2)' }, // Grid sumbu Y lebih redup
                 beginAtZero: true
             }
         }
     }
 });
+
+// Atur background chart menjadi hitam
+ctx.canvas.parentNode.style.backgroundColor = "#121212";
 
 let currentDeviceId = null;
 let interval = null;
@@ -116,5 +121,5 @@ deviceSelect.addEventListener('change', function () {
 updateChart(currentDeviceId);
 
 window.addEventListener("resize", function () {
-    sensorChart.resize();
+    gasChart.resize();
 });

@@ -36,7 +36,16 @@
                                         <td>{{ $user->id }}</td>
                                         <td>{{ $user->name }}</td>
                                         <td>{{ $user->email }}</td>
-                                        <td>{{ $user->role }}</td>
+                                        <td>
+                                            <form action="{{ route('users.updateRole', $user->id) }}" method="POST">
+                                                @csrf
+                                                @method('PUT')
+                                                <select name="role" class="form-control" onchange="this.form.submit()">
+                                                    <option value="user" {{ $user->role == 'user' ? 'selected' : '' }}>User</option>
+                                                    <option value="admin" {{ $user->role == 'admin' ? 'selected' : '' }}>Admin</option>
+                                                </select>
+                                            </form>
+                                        </td>
                                     </tr>
                                     @endforeach
                                 </tbody>

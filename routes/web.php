@@ -40,6 +40,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/users_data', [UsersController::class, 'index2'])->name('users_data.index2');
 });
+Route::put('/users/{id}/update-role', [UsersController::class, 'updateRole'])->name('users.updateRole');
 
 // Route::get('/', function () {
 //     return view('welcome');
