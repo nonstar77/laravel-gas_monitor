@@ -6,7 +6,7 @@
     <div class="container-fluid">
     <div class="row mb-2">
         <div class="col-sm-6">
-        <h1 class="m-0">Device Monitoring Gas</h1>
+            <h1 class="m-0">Device Monitoring Gas</h1>
         </div>
     </div>
     </div>
@@ -50,7 +50,7 @@
             <h3 class="card-title">Daftar Perangkat Terdaftar</h3>
             </div>
             <div class="card-body">
-            <table class="table table-dark">
+            <table class="table table-dark table-bordered">
                 <thead>
                 <tr>
                     <th>Nama Perangkat</th>

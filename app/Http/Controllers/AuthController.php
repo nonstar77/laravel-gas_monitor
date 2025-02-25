@@ -19,8 +19,8 @@ class AuthController extends Controller
         ]);
 
         if (Auth::attempt($request->only('email', 'password'), $request->remember)) {
-            
-            return redirect('/dashboard'); 
+
+            return redirect('/');
         }
         return back()->with('failed', 'Email atau password salah.');
     }
@@ -43,24 +43,30 @@ class AuthController extends Controller
             'status' => 'active',
         ]);
         Auth::login($user);
-        return redirect('/dashboard')->with('success', 'Registrasi berhasil!');
+        return redirect('/')->with('success', 'Registrasi berhasil!');
+    }
+
+    public function dashboard()
+    {
+        $user = auth()->user(); // Ambil user yang sedang login
+        return view('dashboard', compact('user'));
     }
 
     protected function registered(Request $request, $user)
     {
         $this->sendWhatsAppNotification($user->whatsapp_number, $user->name);
     }
-    
+
     private function sendWhatsAppNotification($whatsappNumber, $userName)
     {
         $sid    = env("TWILIO_SID");
         $token  = env("TWILIO_AUTH_TOKEN");
         $twilio = new Client($sid, $token);
-    
+
         $message = "🎉 *Selamat Datang, $userName!* 🎉\n\n".
-                   "✅ Anda telah berhasil mendaftar.\n".
-                   "🚀 Sekarang Anda akan menerima notifikasi otomatis terkait pemantauan gas.";
-    
+                "✅ Anda telah berhasil mendaftar.\n".
+                "🚀 Sekarang Anda akan menerima notifikasi otomatis terkait pemantauan gas.";
+
         $twilio->messages->create(
             "whatsapp:$whatsappNumber",
             [
@@ -72,6 +78,6 @@ class AuthController extends Controller
 
     public function logout(){
         Auth::logout(Auth::user());
-        return redirect('/login');
+        return redirect('/');
     }
 }

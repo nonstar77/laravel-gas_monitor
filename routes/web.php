@@ -37,9 +37,13 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::delete('/devices/{id}', [DeviceController::class, 'destroy'])->name('devices.destroy');
 });
 
-Route::get('/', function () {
-    return view('welcome');
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/users_data', [UsersController::class, 'index2'])->name('users_data.index2');
 });
+
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Route::get('/login', fn () => view('auth.login'))->name('login');
 route::post('/login', [AuthController::class, 'login']);
@@ -47,12 +51,7 @@ route::post('/login', [AuthController::class, 'login']);
 Route::get('/register', fn () => view('auth.register'))->name('register');
 route::post('/register', [AuthController::class, 'register']);
 
-// Route group for dashboard and checkrole
-// Route::group(['middleware' => ['auth', 'check_role:admin,staff']], function () {
-//     Route::get('/dashboard', [DashboardController::class, 'index']);
-// });
-
-Route::get('/dashboard', [DashboardController::class, 'index']);
+Route::get('/', [DashboardController::class, 'index']);
 Route::get('/logout', [AuthController::class, 'logout']);
 
 // Route::get('/', function () {

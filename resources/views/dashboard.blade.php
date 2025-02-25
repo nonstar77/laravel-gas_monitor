@@ -32,8 +32,11 @@
                         <div class="card-header">
                             <h3 class="card-title">Grafik Data Sensor</h3>
                         </div>
-                        <div class="card-body">
+                        {{-- <div class="card-body">
                             <canvas id="sensorChart"></canvas>
+                        </div> --}}
+                        <div class="chart-container">
+                            <canvas id="gasChart"></canvas>
                         </div>
                     </div>
                 </div>
@@ -46,9 +49,11 @@
 @section('js')
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+<script src="{{asset('css/monitoring.js')}}"></script>
+
 {{-- <script src="{{asset(path: 'css/monitoring.js')}}"></script> --}}
 
-<script>
+{{-- <script>
 document.addEventListener("DOMContentLoaded", function () {
     let ctx = document.getElementById('sensorChart').getContext('2d');
 
@@ -72,8 +77,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         color: '#FFFFFF',
                         callback: function(value, index, values) {
                             let date = new Date(value);
-
-                            return new Date(value).toLocaleString("id-ID", {
+                            return date.toLocaleString("id-ID", {
                                 year: "numeric",
                                 month: "2-digit",
                                 day: "2-digit",
@@ -124,7 +128,14 @@ document.addEventListener("DOMContentLoaded", function () {
                 let mq8_values = [];
 
                 data.forEach(sensor => {
-                    labels.push(new Date(sensor.created_at)); // Simpan sebagai timestamp
+                    labels.push(new Date(sensor.created_at).toLocaleString("id-ID", {
+                        year: "numeric",
+                        month: "2-digit",
+                        day: "2-digit",
+                        hour: "2-digit",
+                        minute: "2-digit",
+                        second: "2-digit"
+                    }));
                     mq4_values.push(sensor.mq4_value);
                     mq6_values.push(sensor.mq6_value);
                     mq8_values.push(sensor.mq8_value);
@@ -161,5 +172,5 @@ document.addEventListener("DOMContentLoaded", function () {
         sensorChart.resize();
     });
 });
-</script>
+</script> --}}
 @endsection

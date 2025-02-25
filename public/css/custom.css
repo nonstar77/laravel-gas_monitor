@@ -92,7 +92,8 @@ h1 {
 .table {
     background-color: #252525;
     color: white;
-    border-radius: 8px;
+    border-radius: 5px;
+    border-color: white;
 }
 
 .table th {
@@ -103,6 +104,20 @@ h1 {
 .table tbody tr:hover {
     background-color: #333 !important;
 }
+
+.table-dark {
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.table-dark tbody tr:last-child td:first-child {
+    border-bottom-left-radius: 10px;
+}
+
+.table-dark tbody tr:last-child td:last-child {
+    border-bottom-right-radius: 10px;
+}
+
 
 /* ======= Chart Styling ======= */
 canvas {

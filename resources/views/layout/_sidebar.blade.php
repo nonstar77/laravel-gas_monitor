@@ -2,7 +2,7 @@
     <!-- Brand Logo -->
     <a href="{{ url('/') }}" class="brand-link">
         <img src="{{ asset('reglogin/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo"
-             class="brand-image img-circle elevation-3" style="opacity: .8">
+            class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">UPT Lab Plasma-Catalysis</span>
     </a>
 
@@ -38,8 +38,8 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <!-- Dashboard -->
                 <li class="nav-item">
-                    <a href="{{ url('/dashboard') }}"
-                        class="nav-link {{ request()->is('dashboard') ? 'active' : '' }}">
+                    <a href="{{ url('/') }}"
+                        class="nav-link {{ request()->is('/') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>Dashboard</p>
                     </a>
@@ -58,12 +58,20 @@
                 @if(Auth::check() && Auth::user()->role === 'admin')
                     <li class="nav-item">
                         <a href="{{ route('devices.index') }}"
-                           class="nav-link {{ request()->is('devices') ? 'active' : '' }}">
+                            class="nav-link {{ request()->is('devices') ? 'active' : '' }}">
                             <i class="nav-icon fas fa-microchip"></i>
                             <p>Devices</p>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="{{ route('users_data.index2') }}"
+                                class="nav-link {{ request()->is('users_data') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-users"></i>
+                            <p>Users Data</p>
+                        </a>
+                    </li>
                 @endif
+
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

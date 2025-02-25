@@ -26,10 +26,9 @@ class SensorController extends Controller
                     'mq4_value' => $data->mq4_value,
                     'mq6_value' => $data->mq6_value,
                     'mq8_value' => $data->mq8_value,
-                    'created_at' => $data->created_at ? $data->created_at->format('Y-m-d H:i:s') : null, // Format tanggal
+                    'created_at' => $data->created_at->toISOString(), // Format ISO 8601 (standar JavaScript)
                 ];
             }));
-
     }
 
     // Menampilkan semua data sensor untuk halaman Data Sensor
