@@ -98,17 +98,17 @@ function fetchSensorData() {
                 const row = document.createElement('tr');
                 row.innerHTML = `
                     <td>${item.id}</td>
-                    <td>${item.gas_value_mq4}</td>
-                    <td>${item.gas_value_mq6}</td>
-                    <td>${item.gas_value_mq8}</td>
+                    <td>${item.mq4_value}</td>
+                    <td>${item.mq6_value}</td>
+                    <td>${item.mq8_value}</td>
                     <td>${formattedTimestamp}</td>
                 `;
                 tableBody.appendChild(row);
 
                 chartData.labels.push(formattedTimestamp);
-                chartData.datasets[0].data.push(item.gas_value_mq4);
-                chartData.datasets[1].data.push(item.gas_value_mq6);
-                chartData.datasets[2].data.push(item.gas_value_mq8);
+                chartData.datasets[0].data.push(item.mq4_value);
+                chartData.datasets[1].data.push(item.mq6_value);
+                chartData.datasets[2].data.push(item.mq8_value);
             });
 
             gasChart.update();
@@ -120,4 +120,4 @@ function fetchSensorData() {
 fetchSensorData();
 
 // Perbarui data setiap 1 detik
-setInterval(fetchSensorData, 1000);
+setInterval(fetchSensorData, 5000);

@@ -21,6 +21,8 @@ class SensorData extends Model
         'mq8_value',
     ];
 
+    public $timestamps = true; // Pastikan ini ada
+
     // Relasi ke Device
     public function device()
     {

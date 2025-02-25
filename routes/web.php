@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Api\DeviceController;
+use App\Http\Controllers\Api\SensorController;
+use App\Http\Controllers\UsersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,6 +18,9 @@ use App\Http\Controllers\Api\DeviceController;
 |
 */
 
+
+Route::get('/sensor-data', [SensorController::class, 'getAllSensorData'])->name('sensor.data');
+
 Route::get('/devices', [DeviceController::class, 'devices'])->name('devices');
 Route::post('/devices', [DeviceController::class, 'store'])->name('devices.store');
 Route::get('/devices', [DeviceController::class, 'showAllDevices'])->name('devices.devices'); // Tambahkan jika belum ada
@@ -23,6 +28,14 @@ Route::get('/devices', [DeviceController::class, 'index'])->name('devices.index'
 Route::post('/devices/generate-token', [DeviceController::class, 'generateToken'])->name('devices.generateToken');
 
 Route::resource('devices', DeviceController::class);
+
+Route::get('/users', fn () => view('users', ['user' => Auth::user()]))->name('users')->middleware('auth');
+
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/devices', [DeviceController::class, 'index'])->name('devices.index');
+    Route::post('/devices', [DeviceController::class, 'store'])->name('devices.store');
+    Route::delete('/devices/{id}', [DeviceController::class, 'destroy'])->name('devices.destroy');
+});
 
 Route::get('/', function () {
     return view('welcome');
@@ -39,7 +52,7 @@ route::post('/register', [AuthController::class, 'register']);
 //     Route::get('/dashboard', [DashboardController::class, 'index']);
 // });
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
+Route::get('/dashboard', [DashboardController::class, 'index']);
 Route::get('/logout', [AuthController::class, 'logout']);
 
 // Route::get('/', function () {

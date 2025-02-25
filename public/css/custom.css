@@ -2,13 +2,33 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-  }
-
+}
 
 body {
     background-color: #121212; /* Dark background */
     color: #ffffff; /* White text */
     font-family: 'Source Sans Pro', sans-serif;
+}
+
+body.login-page {
+    background: url('https://labterpadu.undip.ac.id/wp-content/uploads/2013/01/cropped-lab1-2.jpg') no-repeat center center fixed;
+    background-size: cover;
+    position: relative;
+}
+
+body.login-page::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Overlay untuk efek gelap */
+    backdrop-filter: blur(8px); /* Efek blur */
+}
+
+.login-box h1 {
+    font-size: 36px;
 }
 
 /* ======= Navbar Customization ======= */
@@ -25,19 +45,28 @@ body {
     background-color: #dc3545 !important; /* Red notification badge */
 }
 
+
 /* ======= Sidebar Customization ======= */
 .main-sidebar {
     background-color: #1c1c1c;
     color: #ffffff;
 }
 
+.brand-link {
+    color: #ffffff !important;
+}
+
 .sidebar a {
     color: #b8b8b8;
 }
 
+span:hover {
+    color: #ffffff !important;
+}
+
 .sidebar a:hover {
-    color: #ffffff;
-    background-color: #007bff;
+    color: #ffffff !important;
+    background-color: #1c1c1c;
 }
 
 /* ======= Dashboard Title ======= */
@@ -67,8 +96,8 @@ h1 {
 }
 
 .table th {
-    background-color: #007bff !important;
-    color: white;
+    background-color: #f6f6f6 !important;
+    color: rgb(0, 0, 0);
 }
 
 .table tbody tr:hover {
@@ -152,4 +181,36 @@ th {
     background-color: white;
     border-radius: 10px;
     padding: 10px;
+}
+
+.logout-button {
+    background-color: #d9534f; /* Warna merah */
+    color: white !important; /* Pastikan teks putih */
+    border-radius: 5px;
+    padding: 8px 10px; /* Sesuaikan padding agar lebih proporsional */
+    display: flex;
+    align-items: center; /* Pusatkan ikon dan teks secara vertikal */
+    justify-content: center; /* Pusatkan secara horizontal */
+    gap: 8px; /* Beri jarak antara ikon dan teks */
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.logout-button a {
+    color: white !important;
+    font-size: 14px; /* Ukuran font */
+    font-weight: bold;
+    text-decoration: none;
+    display: flex;
+    align-items: center; /* Pastikan kontennya tetap sejajar */
+    gap: 5px; /* Jarak antara ikon dan teks */
+}
+
+.logout-button i {
+    font-size: 14px; /* Ukuran ikon */
+}
+
+.logout-button:hover {
+    background-color: #c9302c; /* Warna merah lebih gelap saat hover */
 }

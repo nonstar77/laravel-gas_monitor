@@ -8,12 +8,6 @@
                 <div class="col-sm-6">
                     <h1 class="m-0">Dashboard Monitoring Gas</h1>
                 </div>
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Dashboard</li>
-                    </ol>
-                </div>
             </div>
         </div>
     </div>
@@ -44,41 +38,6 @@
                     </div>
                 </div>
             </div>
-            <!-- Tabel Data Sensor -->
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">Data Sensor</h3>
-                        </div>
-                        <div class="card-body">
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>Nama Perangkat</th>
-                                        <th>MQ-4</th>
-                                        <th>MQ-6</th>
-                                        <th>MQ-8</th>
-                                        <th>Waktu</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="sensor-data">
-                                    @foreach($sensorData as $data)
-                                        <tr>
-                                            <td>{{ $data->device->name }}</td>
-                                            <td>{{ $data->mq4_value }}</td>
-                                            <td>{{ $data->mq6_value }}</td>
-                                            <td>{{ $data->mq8_value }}</td>
-                                            <td>{{ $data->created_at }}</td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
         </div>
     </section>
 </div>
@@ -86,6 +45,8 @@
 
 @section('js')
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+{{-- <script src="{{asset(path: 'css/monitoring.js')}}"></script> --}}
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
@@ -106,10 +67,12 @@ document.addEventListener("DOMContentLoaded", function () {
             maintainAspectRatio: true, // Jaga agar chart tetap proporsional
             scales: {
                 x: {
-                    title: { display: true, text: 'Tanggal & Waktu', color: '#FFFFFF' },
+                    title: { font : 16, display: true, text: 'Tanggal & Waktu', color: '#FFFFFF' },
                     ticks: {
                         color: '#FFFFFF',
                         callback: function(value, index, values) {
+                            let date = new Date(value);
+
                             return new Date(value).toLocaleString("id-ID", {
                                 year: "numeric",
                                 month: "2-digit",
@@ -117,14 +80,25 @@ document.addEventListener("DOMContentLoaded", function () {
                                 hour: "2-digit",
                                 minute: "2-digit",
                                 second: "2-digit"
-                            }); // Pastikan timestamp ditampilkan dengan benar
+                            });
                         }
                     }
                 },
                 y: {
-                    title: { display: true, text: 'Nilai Sensor', color: '#FFFFFF' },
-                    ticks: { color: '#FFFFFF' },
-                    beginAtZero: true
+                    ticks: {
+                        font: {
+                            size: 16 // Ubah ukuran font sesuai kebutuhan
+                        },
+                        color: "white" // Pastikan warna terlihat jelas di tema gelap
+                    },
+                    title: {
+                        display: true,
+                        text: "Nilai Sensor",
+                        font: {
+                            size: 16, // Ukuran font label sumbu Y
+                        },
+                        color: "white"
+                    }
                 }
             },
             plugins: {
@@ -150,7 +124,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 let mq8_values = [];
 
                 data.forEach(sensor => {
-                    labels.push(new Date(sensor.created_at).getTime()); // Simpan sebagai timestamp
+                    labels.push(new Date(sensor.created_at)); // Simpan sebagai timestamp
                     mq4_values.push(sensor.mq4_value);
                     mq6_values.push(sensor.mq6_value);
                     mq8_values.push(sensor.mq8_value);
@@ -189,4 +163,3 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 </script>
 @endsection
-

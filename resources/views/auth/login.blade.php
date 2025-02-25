@@ -1,3 +1,4 @@
+<aside class="main-login">
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,21 +14,23 @@
   <link rel="stylesheet" href="{{asset('reglogin/plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{asset('reglogin/dist/css/adminlte.min.css')}}">
+
+  <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
 </head>
 <body class="hold-transition login-page">
 <div class="login-box">
   <!-- /.login-logo -->
   <div class="card card-outline card-primary">
     <div class="card-header text-center">
-      <a href="{{asset('reglogin/index2.html')}}" class="h1"><b>Silahkan Login!</b></a>
+      <h1>Silahkan Login</h1>
     </div>
-    <div class="card-body"> 
+    <div class="card-body">
 
       @if (session('failed'))
           <div class="alert alert-danger">{{session('failed')}}</div>
       @endif
 
-      <p class="login-box-msg">Silakan masuk untuk mengakses akun dan layanan Anda.</p>
+      <p class="login-box-msg">Silakan login untuk mengakses akun dan mendapatkan notifikasi.</p>
 
       <form action="/login" method="post">
         @csrf
@@ -69,16 +72,6 @@
           <!-- /.col -->
         </div>
       </form>
-
-      <div class="social-auth-links text-center mt-2 mb-3">
-        <a href="#" class="btn btn-block btn-primary">
-          <i class="fab fa-facebook mr-2"></i> Sign in using Facebook
-        </a>
-        <a href="#" class="btn btn-block btn-danger">
-          <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
-        </a>
-      </div>
-      <!-- /.social-auth-links -->
 
       <p class="mb-1">
         <a href="forgot-password.html">I forgot my password</a>

@@ -1,93 +1,72 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
-      <img src="{{asset('reglogin/dist/img/AdminLTELogo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">UPT Lab Plasma-Catalysis</span>
+    <a href="{{ url('/') }}" class="brand-link">
+        <img src="{{ asset('reglogin/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo"
+             class="brand-image img-circle elevation-3" style="opacity: .8">
+        <span class="brand-text font-weight-light">UPT Lab Plasma-Catalysis</span>
     </a>
-    <!-- Custom CSS Fleksibel Teks -->
+
+    <!-- Custom CSS untuk Brand Text -->
     <style>
-    .brand-text {
-        font-size: 1rem;  /* Menyesuaikan ukuran teks */
-        white-space: normal !important;
-        word-wrap: break-word;
-        display: block;
-        max-width: 100%;
-    }
+        .brand-text {
+            font-size: 1rem;
+            white-space: normal !important;
+            word-wrap: break-word;
+            display: block;
+            max-width: 100%;
+        }
     </style>
 
     <!-- Sidebar -->
     <div class="sidebar">
-      <!-- Sidebar user panel (optional) -->
-      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
-          <img src="{{asset('reglogin/dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
+        <!-- Sidebar User Panel -->
+        @if(Auth::check() && in_array(Auth::user()->role, ['admin', 'user']))
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+            <div class="image">
+                <img src="{{ asset('reglogin/dist/img/user2-160x160.jpg') }}"
+                    class="img-circle elevation-2" alt="User Image">
+            </div>
+            <div class="info">
+                <a href="{{ url('/users') }}" class="d-block">{{ Auth::user()->name }}</a>
+            </div>
         </div>
-        <div class="info">
-          <a href="#" class="d-block">{{ Auth::user()->name }}</a>
-        </div>
-      </div>
+        @endif
 
-      <!-- SidebarSearch Form -->
-      <div class="form-inline">
-        <div class="input-group" data-widget="sidebar-search">
-          <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
-          <div class="input-group-append">
-            <button class="btn btn-sidebar">
-              <i class="fas fa-search fa-fw"></i>
-            </button>
-          </div>
-        </div>
-      </div>
 
-      <!-- Sidebar Menu -->
-      <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-          <li class="nav-item menu-open">
-            <a href="#" class="nav-link active">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
-              <p>
-                Dashboard
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="/dashboard" class="nav-link {{ request()->is('dashboard') ? 'active' : '' }}">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Monitoring</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="./devices" class="nav-link {{ request()->is('devices') ? 'active' : '' }}">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Devices</p>
-                </a>
-            </li>
-              <li class="nav-item">
-                <a href="./index2.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Settings</p>
-                </a>
-              </li>
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <!-- Dashboard -->
+                <li class="nav-item">
+                    <a href="{{ url('/dashboard') }}"
+                        class="nav-link {{ request()->is('dashboard') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ url('/sensor-data') }}"
+                        class="nav-link {{ request()->is('sensor-data') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-history"></i>
+                        <p>Data Sensor</p>
+                    </a>
+                </li>
+
+
+                <!-- Devices (Hanya untuk Admin) -->
+                @if(Auth::check() && Auth::user()->role === 'admin')
+                    <li class="nav-item">
+                        <a href="{{ route('devices.index') }}"
+                           class="nav-link {{ request()->is('devices') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-microchip"></i>
+                            <p>Devices</p>
+                        </a>
+                    </li>
+                @endif
             </ul>
-          </li>
-          <li class="nav-item">
-                <a href="/users" class="nav-link">
-                  <i class="nav-icon fas fa-user"></i>
-                  <p>Users</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="/logout" class="nav-link">
-                  <i class="nav-icon fas fa-power-off"></i>
-                  <p>Logout</p>
-                </a>
-              </li>
-        </ul>
-      </nav>
-      <!-- /.sidebar-menu -->
+        </nav>
+        <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->
-  </aside>
+</aside>
