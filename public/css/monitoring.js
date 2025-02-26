@@ -1,6 +1,6 @@
-// Data untuk Chart dengan 3 subjek
+// Chart
 let chartData = {
-    labels: [], // Timestamp
+    labels: [],
     datasets: [
         {
             label: 'Gas Value MQ4',
@@ -29,35 +29,42 @@ let chartData = {
     ]
 };
 
-// Konfigurasi Chart.js dengan tema gelap
+const canvas = document.getElementById('gasChart');
+const parent = canvas.parentElement;
+
 const ctx = document.getElementById('gasChart').getContext('2d');
 const gasChart = new Chart(ctx, {
     type: 'line',
     data: chartData,
     options: {
         responsive: true,
+        maintainAspectRatio: true, // Tambahkan ini
         plugins: {
             legend: {
                 display: true,
-                labels: { color: '#ffffff' } // Warna teks legenda jadi putih
+                labels: { color: '#ffffff' }
             }
         },
         scales: {
             x: {
-                ticks: { color: '#ffffff' }, // Warna teks sumbu X jadi putih
-                grid: { color: 'rgba(255, 255, 255, 0.2)' } // Grid sumbu X lebih redup
+                ticks: { color: '#ffffff' }
             },
             y: {
-                ticks: { color: '#ffffff' }, // Warna teks sumbu Y jadi putih
-                grid: { color: 'rgba(255, 255, 255, 0.2)' }, // Grid sumbu Y lebih redup
+                ticks: { color: '#ffffff' },
                 beginAtZero: true
             }
+        },
+        layout: {
+            backgroundColor: 'rgba(0, 0, 0, 0)'
         }
     }
 });
 
-// Atur background chart menjadi hitam
-ctx.canvas.parentNode.style.backgroundColor = "#121212";
+parent.style.alignItems = "center";
+parent.style.justifyContent = "center";
+parent.style.overflow = "hidden";
+
+document.getElementById('gasChart').style.backgroundColor = '#343a40';
 
 let currentDeviceId = null;
 let interval = null;
@@ -117,9 +124,75 @@ deviceSelect.addEventListener('change', function () {
     }, 5000);
 });
 
-// Ambil data pertama kali saat halaman dimuat
 updateChart(currentDeviceId);
 
 window.addEventListener("resize", function () {
     gasChart.resize();
 });
+
+//Card
+function updateCards(deviceId) {
+    if (!deviceId || deviceId !== currentDeviceId) return;
+
+    fetch(`/api/sensor?device_id=${deviceId}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.length > 0) {
+                let latestData = data[data.length - 1]; // Ambil data terbaru
+
+                document.getElementById("mq4-value").textContent = latestData.mq4_value;
+                document.getElementById("mq6-value").textContent = latestData.mq6_value;
+                document.getElementById("mq8-value").textContent = latestData.mq8_value;
+            }
+        })
+        .catch(error => console.error("Error fetching data:", error));
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    function updateCards(deviceId) {
+        if (!deviceId || deviceId !== currentDeviceId) return;
+
+        fetch(`/api/sensor?device_id=${deviceId}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.length > 0) {
+                    let latestData = data[data.length - 1]; // Ambil data terbaru
+
+                    let mq4 = document.getElementById("mq4-value");
+                    let mq6 = document.getElementById("mq6-value");
+                    let mq8 = document.getElementById("mq8-value");
+
+                    if (mq4 && mq6 && mq8) {
+                        mq4.textContent = latestData.mq4_value;
+                        mq6.textContent = latestData.mq6_value;
+                        mq8.textContent = latestData.mq8_value;
+                    } else {
+                        console.error("Elemen card tidak ditemukan!");
+                    }
+                }
+            })
+            .catch(error => console.error("Error fetching data:", error));
+    }
+
+    updateCards(currentDeviceId);
+});
+
+
+deviceSelect.addEventListener("change", function () {
+    let deviceId = this.value;
+    currentDeviceId = deviceId;
+
+    if (interval) clearInterval(interval);
+
+    // Update chart & card setiap 5 detik
+    updateChart(deviceId);
+    updateCards(deviceId);
+
+    interval = setInterval(() => {
+        updateChart(deviceId);
+        updateCards(deviceId);
+    }, 5000);
+});
+
+// Jalankan saat halaman pertama kali dibuka
+updateCards(currentDeviceId);

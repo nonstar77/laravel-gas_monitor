@@ -16,6 +16,14 @@ body.login-page {
     position: relative;
 }
 
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Agar tinggi 100% dari viewport */
+    width: 100%;
+}
+
 body.login-page::before {
     content: "";
     position: absolute;
@@ -81,6 +89,7 @@ h1 {
     background-color: #1e1e1e !important;
     border-radius: 10px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    padding: 20px;
 }
 
 .card-title {
@@ -183,19 +192,74 @@ th, td {
     text-align: center;
     border-bottom: 1px solid #333333;
 }
+
 th {
     background-color: #ab1111;
     color: #ffffff;
 }
+
 .chart-container {
     width: 100%;
     max-width: 1000px;
     margin: 20px auto;
+    height: 100%;
+    padding: 20px;
+    display: block;
 }
+
 #gasChart {
     background-color: rgb(0, 0, 0);
     border-radius: 10px;
     padding: 10px;
+    width: 100% !important;
+    height: auto !important;
+    max-width: 100%;
+}
+
+.sensor-cards {
+    display: none;
+}
+
+/* Jika layar < 690px, sembunyikan Chart & tampilkan Card */
+@media screen and (max-width: 690px) {
+    .chart-container {
+        display: none;
+    }
+    .sensor-cards {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: center;
+        padding: 20px;
+    }
+    .sensor-card {
+        color: white;
+        padding: 15px;
+        border-radius: 10px;
+        text-align: center;
+        font-size: 18px;
+        font-weight: bold;
+        margin: 10px;
+    }
+
+    /* MQ-4: Warna biru seperti di chart */
+    .mq4-card {
+        background-color: rgba(0, 102, 204, 0.2);
+        border: 2px solid #1e90ff;
+    }
+
+    /* MQ-6: Warna merah seperti di chart */
+    .mq6-card {
+        background-color: rgba(153, 0, 51, 0.2);
+        border: 2px solid #ab1111;
+    }
+
+    /* MQ-8: Warna hijau seperti di chart */
+    .mq8-card {
+        background-color: rgba(0, 153, 76, 0.2);
+        border: 2px solid #32cd32;
+    }
+
 }
 
 .logout-button {
@@ -261,3 +325,35 @@ th {
     background-color: rgb(44, 112, 201); /* Warna merah lebih gelap saat hover */
 }
 
+/* Contact */
+.contact-container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background: #343a40;
+    color: white;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.contact-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.contact-info p {
+    font-size: 18px;
+    margin: 5px 0;
+}
+
+.contact-socials a {
+    color: #1e90ff;
+    text-decoration: none;
+    font-weight: bold;
+    margin: 0 10px;
+}
+
+.contact-socials a:hover {
+    text-decoration: underline;
+}

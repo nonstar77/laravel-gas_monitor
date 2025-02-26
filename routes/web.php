@@ -42,6 +42,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
 });
 Route::put('/users/{id}/update-role', [UsersController::class, 'updateRole'])->name('users.updateRole');
 
+Route::view('/contact', 'contact');
+
 // Route::get('/', function () {
 //     return view('welcome');
 // });

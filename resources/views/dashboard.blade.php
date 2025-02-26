@@ -38,6 +38,20 @@
                         <div class="chart-container">
                             <canvas id="gasChart"></canvas>
                         </div>
+                        <div class="sensor-cards">
+                            <div class="sensor-card mq4-card">
+                                <h3>MQ-4</h3>
+                                <p>Gas Value: <strong id="mq4-value">-</strong></p>
+                            </div>
+                            <div class="sensor-card mq6-card">
+                                <h3>MQ-6</h3>
+                                <p>Gas Value: <strong id="mq6-value">-</strong></p>
+                            </div>
+                            <div class="sensor-card mq8-card">
+                                <h3>MQ-8</h3>
+                                <p>Gas Value: <strong id="mq8-value">-</strong></p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

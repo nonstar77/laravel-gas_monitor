@@ -15,13 +15,14 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="{{asset('reglogin/dist/css/adminlte.min.css')}}">
   <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
+
 </head>
 <body class="hold-transition login-page">
 <div class="login-box">
   <!-- /.login-logo -->
   <div class="card card-outline card-primary">
     <div class="card-header text-center">
-      <a href="{{asset('reglogin/index2.html')}}" class="h1"><b>Register here</b></a>
+      <h1>Register Here</h1>
     </div>
     <div class="card-body">
 
